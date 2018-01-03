@@ -25,7 +25,7 @@ class QueueWithMax #added LinkedList functionality for O(1) all-around
 
   end
 
-  def enqueue(val) #O(1)
+  def enqueue(val) #O(1) amortized
     @store.push(val) unless @before #not top-level: store of maxes
 
     if @current_node.store.length == 0
@@ -57,7 +57,7 @@ class QueueWithMax #added LinkedList functionality for O(1) all-around
     val
   end
 
-  def max # always O(1)
+  def max # O(1); worst-case O(n/2), where each level has only 2 items
     @current_node = @current_node.after if @current_node.store.length == 0
     @current_node.store[@current_node.store.length - 1]
   end
