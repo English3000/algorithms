@@ -19,6 +19,7 @@ class QuickSort
   end
 
   # In-place. //select pivot randomly; space complexity of O(log n)--the recursive call stack--making it most usable
+  # OR, pass in full array on recursive calls & change start & length
   def self.sort2!(array, start = 0, length = array.length, &prc)
     return array if length <= 1
 
