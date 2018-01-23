@@ -1,3 +1,5 @@
+require 'byebug'
+
 class DynamicProgramming
 
   def initialize
@@ -260,6 +262,29 @@ class DynamicProgramming
 
   end
 
-  def maze_solver(maze, start_pos, end_pos)
+  def maze_solver(maze, start_pos, end_pos, past_pos = [ start_pos ])
+    unless start_pos == end_pos
+      x, y = start_pos
+      possible_moves = [ [x+1, y], [x-1, y], [x, y+1], [x, y-1] ].select do |pos|
+        # p 'Width: '
+        # p maze[0].length
+        # p 'Height: '
+        # p maze.length
+        # p 'Position: '
+        # p pos
+        !past_pos.include?(pos) &&
+        pos[0] >= 0 && pos[0] < maze[0].length &&
+        pos[1] >= 0 && pos[1] < maze.length &&
+        !maze[pos[0]][pos[1]].include?('X')
+      end
+      return false if possible_moves.empty?
+
+      possible_moves.each do |pos|
+        result = maze_solver(maze, pos, end_pos, past_pos.dup << pos) #should exclude past pos's
+        result ? (past_pos = result) : (return false)
+      end
+    end
+
+    past_pos
   end
 end
