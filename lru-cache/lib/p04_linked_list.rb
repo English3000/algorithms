@@ -76,7 +76,7 @@ class LinkedList
   def update(key, val)
     each do |node|
       if node.key == key
-        node.key = key
+        node.key = key #superfluous
         node.val = val
         return node
       end

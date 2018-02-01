@@ -28,9 +28,8 @@ class QueueWithMax #added LinkedList functionality for O(1) all-around
   def enqueue(val) #O(1) amortized
     @store.push(val) unless @before #not top-level: store of maxes
 
-    if @current_node.store.length == 0
-      @current_node.store.push(val)
-    elsif val > @current_node.store[@current_node.store.length - 1]
+    if @current_node.store.length == 0 ||
+       val > @current_node.store[@current_node.store.length - 1]
       @current_node.store.push(val)
     elsif @current_node.after
       @current_node.after.enqueue(val)
